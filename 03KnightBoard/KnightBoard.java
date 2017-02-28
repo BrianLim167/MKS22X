@@ -6,7 +6,11 @@ public class KnightBoard{
     }
 
     public void solve(){
-	solveH(0,0,0);
+	for (int row=0 ; row<board.length/2 ; row++){
+	    for (int col=0 ; col<board[0].length/2 && col<=row ; col++){
+		solveH(row,col,1);
+	    }
+	}
     }
 
     private boolean solveH(int row,int col,int level){
@@ -28,8 +32,8 @@ public class KnightBoard{
 		if (solveH(newX,newY,level+1)){
 		    return true;
 		}
-		board[row][col] = 0;
 	    }
+	    board[row][col] = 0;
 	}
 	return false;
     }
@@ -64,5 +68,16 @@ public class KnightBoard{
 	    return -2;
 	}
 	return 0;
+    }
+
+    public String toString(){
+	String ans = "";
+	for (int row=0 ; row<board.length ; row++){
+	    for (int col=0 ; col<board[0].length ; col++){
+		ans += (board[row][col] + "  ").substring(0,3);
+	    }
+	    ans += "\n";
+	}
+	return ans;
     }
 }

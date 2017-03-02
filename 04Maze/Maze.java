@@ -23,15 +23,33 @@ public class Maze{
     public Maze(String filename){
         //COMPLETE CONSTRUCTOR
 	setAnimate(false);
-	Scanner scan = new Scanner(new File(filename));
-	ArrayList<String> text = new ArrayList<String>();
-	int lines = 0;
-	while (scan.hasNextLine()){
-	    line++;
-	    
+	try{
+	    Scanner scan = new Scanner(new File(filename));
+	    ArrayList<String> text = new ArrayList<String>();
+	    while (scan.hasNextLine()){
+		text.add(scan.nextLine());
+	    }
+	    maze = new char[text.size()][text.get(0).length()];
+	    for (int row=0 ; row<maze.length ; row++){
+		for (int col=0 ; col<maze[0].length ; col++){
+		    maze[row][col] = text.get(row).charAt(col);
+		}
+	    }
+	}
+	catch (FileNotFoundException exc){
 	}
     }
     
+    public String toString(){
+	String ans = "";
+	for (int row=0 ; row<maze.length ; row++){
+	    for (int col=0 ; col<maze[0].length ; col++){
+		ans += maze[row][col];
+	    }
+	    ans += "\n";
+	}
+	return ans;
+    }
 
     private void wait(int millis){ //ADDED SORRY!
          try {

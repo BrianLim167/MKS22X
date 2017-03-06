@@ -26,6 +26,7 @@ public class Maze{
 	try{
 	    Scanner scan = new Scanner(new File(filename));
 	    ArrayList<String> text = new ArrayList<String>();
+	    boolean existE=false,existS=false;
 	    while (scan.hasNextLine()){
 		text.add(scan.nextLine());
 	    }
@@ -33,10 +34,30 @@ public class Maze{
 	    for (int row=0 ; row<maze.length ; row++){
 		for (int col=0 ; col<maze[0].length ; col++){
 		    maze[row][col] = text.get(row).charAt(col);
+		    if (maze[row][col]=='E'){
+			if (existE){
+			    System.out.println("File contains multiple 'E's");
+			    System.exit(1);
+			}
+			existE = true;
+		    }
+		    if (maze[row][col]=='S'){
+			if(existS){
+			    System.out.println("File contains multiple 'S's");
+			    System.exit(1);
+			}
+			existS = true;
+		    }
 		}
+	    }
+	    if (!existE || !existS){
+		System.out.println("File does not contain a start and an end");
+		System.exit(1);
 	    }
 	}
 	catch (FileNotFoundException exc){
+	    System.out.println("Invalid file name");
+	    System.exit(1);
 	}
     }
     
@@ -81,12 +102,19 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public boolean solve(){
-            int startr=-1,startc=-1;
+	int startr=-1,startc=-1;
 
-            //Initialize starting row and startint col with the location of the S. 
-
-            maze[startr][startc] = ' ';//erase the S, and start solving!
-            return solve(startr,startc);
+	//Initialize starting row and startint col with the location of the S. 
+	for (int row=0 ; row<maze.length ; row++){
+	    for (int col=0 ; col<maze[0].length ; col++){
+		if (maze[row][col] == 'S'){
+		    startr = row;
+		    startc = col;
+		}
+	    }
+	}
+	maze[startr][startc] = ' ';//erase the S, and start solving!
+	return solve(startr,startc);
     }
 
     /*
@@ -113,7 +141,18 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-
+	if (row<0 || row>=maze.length || col<0 || col>=maze[0].length){
+	    return false;
+	}else if (maze[row][col]=='E'){
+	    return true;
+	}
+	if (maze[row][col]==' '){
+	    maze[row][col] = '@';
+	    if (solve(row-1,col) || solve(row+1,col) || solve(row,col-1) || solve(row,col+1)){
+		return true;
+	    }
+	    maze[row][col] = '.';
+	}
         return false; //so it compiles
     }
 

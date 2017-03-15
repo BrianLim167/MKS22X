@@ -20,12 +20,13 @@ public class USACO{
 		}
 	    }
 	    int row,col,dec;
-	    while (scan.hasNextLine()){
-		row = scan.nextInt();
-		col = scan.nextInt();
+	    for (int stomp=0 ; stomp<N ; stomp++){//while (scan.hasNextLine()){
+		row = scan.nextInt()-1;
+		col = scan.nextInt()-1;
 		dec = scan.nextInt();
+		//scan.nextLine();
 		int max = 0; 
-		for (int i = row; i < row + 3 && i < R; row++){
+		for (int i = row; i < row + 3 && i < R; i++){
 		    for (int j = col; j < col + 3 && j < C; j++){
 			if (pasture[i][j] > max){
 			    max = pasture[i][j];
@@ -40,13 +41,9 @@ public class USACO{
 		    }
 		}
 	    }
-	    catch (FileNotFoundException e){
-		System.out.println("File Not Found");
-		System.exit(0);
-	    }
 	    int ans = 0;
-	    for (int i = row ; i < R ; i++){
-		for (int j = col ; j < C; j++){
+	    for (int i = 0 ; i < R ; i++){
+		for (int j = 0 ; j < C; j++){
 		    if (pasture[i][j] < E){
 			ans += E - pasture[i][j];
 		    }
@@ -54,9 +51,14 @@ public class USACO{
 	    }
 	    return ans * 72 * 72;
 	}
-	public static void main(String[]args){
-	    USACO x = new USACO();
-	    x.bronze("makelake.in");
+	catch (FileNotFoundException e){
+	    System.out.println("File Not Found");
+	    System.exit(0);
 	}
+	return -1;
+    }
+    public static void main(String[]args){
+	USACO x = new USACO();
+	System.out.println(x.bronze("makelake.in"));
     }
 }

@@ -57,8 +57,94 @@ public class USACO{
 	}
 	return -1;
     }
-    public static void main(String[]args){
+
+    public int silver(String filename){
+	try{
+	    int[][] oldP,newP;
+	    int N,M,T;
+	    int R1,C1,R2,C2;
+	    Scanner scan = new Scanner(new File(filename));
+	    N = scan.nextInt();
+	    M = scan.nextInt();
+	    T = scan.nextInt();
+	    scan.nextLine();
+	    oldP = new int[N][M];
+	    newP = new int[N][M];
+	    for (int r=0 ; r<N ; r++){
+		String line = scan.nextLine();
+		for (int c=0 ; c<M ; c++){
+		    if (line.charAt(c)!='.'){
+			oldP[r][c] = -1;
+			newP[r][c] = -1;
+		    }
+		    //System.out.println(oldP[r][c]);
+		}
+	    }
+	    R1 = scan.nextInt()-1;
+	    C1 = scan.nextInt()-1;
+	    R2 = scan.nextInt()-1;
+	    C2 = scan.nextInt()-1;
+	    if (newP[R1][C1]==0 && newP[R2][C2]==0){
+		newP[R1][C1] = 1;
+	    }
+	    for (int instance=0 ; instance<T ; instance++){
+		//String q="";
+		//for (int r=0 ; r<N ; r++){
+		//    for (int c=0; c<M ; c++){
+		//	q+=newP[r][c]+" ";
+		//    }
+		//    q+="\n";
+		//}
+		//System.out.println(q);
+		for (int r=0 ; r<N ; r++){
+		    for (int c=0 ; c<M ; c++){
+			oldP[r][c] = newP[r][c];
+			if (newP[r][c]!=-1){
+			    newP[r][c] = 0;
+			}
+		    }
+		}
+		for (int r=0 ; r<N ; r++){
+		    for (int c=0; c<M ; c++){
+			if (oldP[r][c]>0){
+			    if (onAry(oldP,r+1,c) && oldP[r+1][c]!=-1){
+				newP[r+1][c]++;
+			    }
+			    if (onAry(oldP,r-1,c) && oldP[r-1][c]!=-1){
+				newP[r-1][c]++;
+			    }
+			    if (onAry(oldP,r,c+1) && oldP[r][c+1]!=-1){
+				newP[r][c+1]++;
+			    }
+			    if (onAry(oldP,r,c-1) && oldP[r][c-1]!=-1){
+				newP[r][c-1]++;
+			    }
+			}
+		    }
+		}
+	    }
+	    return newP[R2][C2];
+	}
+	catch (FileNotFoundException e){
+	    System.out.println("File Not Found");
+	    System.exit(0);
+	}
+	return -1;
+    }
+
+    public boolean onAry(int[][] ary,int r, int c){
+	return r>=0 && r<ary.length && c>=0 && c<ary[0].length;
+    }
+    
+    /**public static void main(String[]args){
 	USACO x = new USACO();
 	System.out.println(x.bronze("makelake.in"));
     }
+    **/
+    /**public static void main(String[]args){
+	USACO x = new USACO();
+	System.out.println(x.silver("ctravel.in"));
+    }
+    **/
+    
 }

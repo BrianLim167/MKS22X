@@ -67,18 +67,18 @@ public class Quick{
 	quicksort(data,0,data.length);
     }
     public static void quicksort(int[] data,int start,int end){
-	//if (data.length>1){
-	int[] inds = part(data,start,end);
-	//for (int i=0 ; i<data.length ; i++){
-	//    System.out.print(data[i]+" ");
-	//}
-	//System.out.println();
-	if (start!=inds[0]){
-	    quicksort(data,start,inds[0]);
+	if (data.length>1){
+	    int[] inds = part(data,start,end);
+	    //for (int i=0 ; i<data.length ; i++){
+	    //    System.out.print(data[i]+" ");
+	    //}
+	    //System.out.println();
+	    if (start!=inds[0]){
+		quicksort(data,start,inds[0]);
+	    }
+	    if (inds[1]+1!=end){
+		quicksort(data,inds[1]+1,end);
+	    }
 	}
-	if (inds[1]+1!=end){
-	    quicksort(data,inds[1]+1,end);
-	}
-	//}
     }
 }

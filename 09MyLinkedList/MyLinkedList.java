@@ -7,7 +7,27 @@ public class MyLinkedList{
 	LNode temp = new LNode(value);
 	temp.next(start);
 	start = temp;
+	size++;
 	return true;
+    }
+    public int size(){
+	return size;
+    }
+    public int get(int index){
+	LNode current = start;
+	for (int i=0 ; i<index ; i++){
+	    current = current.next;
+	}
+	return current.value;
+    }
+    public int set(int index,int value){
+	LNode current = start;
+	for (int i=0 ; i<index ; i++){
+	    current = current.next;
+	}
+	int old = current.value;
+	current.value = value;
+	return old;
     }
 
     public String toString(){

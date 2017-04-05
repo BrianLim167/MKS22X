@@ -5,7 +5,12 @@ public class MyLinkedList{
 
     public boolean add(int value){
 	LNode temp = new LNode(value);
-	temp.prev(tail);
+	if (head == null){
+	    head = temp;
+	}else{
+	    tail.next = temp;
+	    temp.prev = tail;
+	}
 	tail = temp;
 	size++;
 	return true;
@@ -31,7 +36,7 @@ public class MyLinkedList{
     public int set(int index,int value){
 	LNode current;
 	if (index <= size/2){
-	    current = start;
+	    current = head;
 	    for (int i=0 ; i<index ; i++){
 		current = current.next;
 	    }
@@ -79,11 +84,5 @@ class LNode{
     public LNode(){}
     public LNode(int value){
 	this.value = value;
-    }
-    public void prev(LNode prev){
-	this.prev = prev;
-    }
-    public void next(LNode next){
-	this.next = next;
     }
 }

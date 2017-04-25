@@ -1,5 +1,5 @@
 import java.util.Stack;
-public class Postfix{
+public class StackCalc{
     public static double eval(String exp){
 	String[] tokens = exp.split(" ");
 	Stack<Double> values = new Stack<Double>();

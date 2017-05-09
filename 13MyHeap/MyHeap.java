@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 public class MyHeap{
     private String[] ary;
     private int last;
@@ -16,20 +17,40 @@ public class MyHeap{
 	}
     }
 
+    private void swap(String[] ary,int a,int b){
+	String temp = ary[a];
+	ary[a] = ary[b];
+	ary[b] = temp;
+    }
     private void pushUp(){
 	pushUp(last);
     }
     private void pushUp(int ind){
 	if (ind > 1 && ary[ind].compareTo(ary[ind/2])*mult > 0){
-	    String temp = ary[ind];
-	    ary[ind] = ary[ind/2];
-	    ary[ind/2] = temp;
+	    swap(ary,ind,ind/2);
+	    pushUp(ind/2);
 	}    
     }
     private void pushDown(){
 	pushDown(1);
     }
     private void pushDown(int ind){
+	if (2*ind+1 <= last){
+	    if (ary[ind].compareTo(ary[2*ind])*mult < 0 &&
+		ary[2*ind+1].compareTo(ary[2*ind])*mult <= 0){
+		swap(ary,ind,2*ind);
+		pushDown(2*ind);
+	    }else if (ary[ind].compareTo(ary[2*ind+1])*mult < 0 &&
+		ary[2*ind].compareTo(ary[2*ind+1])*mult <= 0){
+		swap(ary,ind,2*ind+1);
+		pushDown(2*ind+1);
+	    }
+	}else if (2*ind <= last){
+	    if (ary[ind].compareTo(ary[2*ind])*mult < 0){
+		swap(ary,ind,2*ind);
+		pushDown(2*ind);
+	    }
+	}
     }
 
     private void grow(){
@@ -56,7 +77,7 @@ public class MyHeap{
 	    throw new NoSuchElementException();
 	}
 	String ans = ary[1];
-	ary[1] = last;
+	ary[1] = ary[last];
 	last--;
 	pushDown();
 	return ans;

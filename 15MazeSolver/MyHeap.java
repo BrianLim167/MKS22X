@@ -88,4 +88,8 @@ public class MyHeap{
 	}
 	return ary[1];
     }
+
+    public boolean hasNext(){
+        return last >= 1;
+    }
 }

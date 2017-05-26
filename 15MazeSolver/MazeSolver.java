@@ -31,6 +31,7 @@ public class MazeSolver{
 	}
 
 	boolean solved = false;
+	Location nLoc;
 	Location loc = new Location(maze.getStart().row(),maze.getStart().col(),null,0,
 				    maze.getStart().distToGoal(),aStar);
 	front.add(loc);
@@ -64,12 +65,12 @@ public class MazeSolver{
 		    }
 		    if (maze.get(nRow,nCol)==' ' || maze.get(nRow,nCol)=='?' ||
 			maze.get(nRow,nCol)=='E'){
-			Location nLoc=new Location(nRow,nCol,loc,
-						   Math.abs(nRow-maze.getStart().row())
-						   +Math.abs(nCol-maze.getStart().col()),
-						   Math.abs(nRow-maze.getEnd().row())
-						   +Math.abs(nCol-maze.getEnd().col()),
-						   aStar);
+			nLoc = new Location(nRow,nCol,loc,
+					    Math.abs(nRow-maze.getStart().row())
+					    +Math.abs(nCol-maze.getStart().col()),
+					    Math.abs(nRow-maze.getEnd().row())
+					    +Math.abs(nCol-maze.getEnd().col()),
+					    aStar);
 			front.add(nLoc);
 			if (nLoc.distToGoal()==0){
 			    maze.set(nLoc.row(),nLoc.col(),'E');
@@ -91,7 +92,7 @@ public class MazeSolver{
 		}
 	    }
 	}
-	System.out.println(maze);
+	//System.out.println(maze);
     }
 
     public static void main(String[] args) {

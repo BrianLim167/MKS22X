@@ -76,7 +76,7 @@ public class MyHeap{
 	if (last < 1){
 	    throw new NoSuchElementException();
 	}
-	Location ans = ary[1];
+	Location ans = ary[1].clone();
 	ary[1] = ary[last];
 	last--;
 	pushDown();
@@ -91,5 +91,6 @@ public class MyHeap{
 
     public boolean hasNext(){
         return last >= 1;
+	//return true;
     }
 }

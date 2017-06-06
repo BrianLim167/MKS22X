@@ -108,16 +108,16 @@ public class USACO{
 		    for (int c=0; c<M ; c++){
 			if (oldP[r][c]>0){
 			    if (onAry(oldP,r+1,c) && oldP[r+1][c]!=-1){
-				newP[r+1][c]++;
+				newP[r+1][c]+=oldP[r][c];
 			    }
 			    if (onAry(oldP,r-1,c) && oldP[r-1][c]!=-1){
-				newP[r-1][c]++;
+				newP[r-1][c]+=oldP[r][c];
 			    }
 			    if (onAry(oldP,r,c+1) && oldP[r][c+1]!=-1){
-				newP[r][c+1]++;
+				newP[r][c+1]+=oldP[r][c];
 			    }
 			    if (onAry(oldP,r,c-1) && oldP[r][c-1]!=-1){
-				newP[r][c-1]++;
+				newP[r][c-1]+=oldP[r][c];
 			    }
 			}
 		    }

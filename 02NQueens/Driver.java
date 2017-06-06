@@ -5,7 +5,7 @@ public class Driver{
 	A.solve();
 	System.out.println(A.toStringDebug());
 	A.countSolutions();
-	System.out.println(A.getCount());
+	System.out.println(A.getSolutionCount());
 	System.out.println("#####");
 	QueenBoard B = new QueenBoard(1);
 	for (int n=1 ; n<=10 ; n++){
@@ -13,7 +13,7 @@ public class Driver{
 	    B.solve();
 	    System.out.println(B);
 	    B.countSolutions();
-	    System.out.println(B.getCount());
+	    System.out.println(B.getSolutionCount());
 	    System.out.println("-----");
 	}
     }

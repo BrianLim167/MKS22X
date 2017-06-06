@@ -25,16 +25,17 @@ public class Quiz2Redux{
 	}
 	if (unique){
 	    words.add(s);
-	}
-	if (s.length()>0){
-	    String part;
-	    for (int i=0 ; i<s.length() ; i++){
-		part = "";
-		part += s.substring(0,i);
-		if (i+1<s.length()){
-		    part += s.substring(i+1,s.length());
+	    if (s.length()>0){
+		String part;
+		for (int i=0 ; i<s.length() ; i++){
+		    part = "";
+		    part += s.substring(0,i);
+		    if (i+1<s.length()){
+			part += s.substring(i+1,s.length());
+		    }
+		    //System.out.println(part);
+		    help(words,part);
 		}
-		help(words,part);
 	    }
 	}
     }
